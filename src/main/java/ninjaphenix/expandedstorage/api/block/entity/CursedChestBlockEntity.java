@@ -7,7 +7,7 @@ import net.fabricmc.api.EnvironmentInterfaces;
 import net.minecraft.block.Block;
 import net.minecraft.client.block.ChestAnimationProgress;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.SidedInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -20,12 +20,12 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import ninjaphenix.containerlib.inventory.DoubleSidedInventory;
+import ninjaphenix.containerlib.inventory.ScrollableContainer;
 import ninjaphenix.expandedstorage.api.ExpandedStorageAPI;
 import ninjaphenix.expandedstorage.api.Registries;
 import ninjaphenix.expandedstorage.api.block.CursedChestBlock;
 import ninjaphenix.expandedstorage.api.block.misc.CursedChestType;
-import ninjaphenix.containerlib.inventory.DoubleSidedInventory;
-import ninjaphenix.containerlib.inventory.ScrollableContainer;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -55,7 +55,7 @@ public class CursedChestBlockEntity extends AbstractChestBlockEntity implements 
 		Iterator<PlayerEntity> playerIterator = playersInRange.iterator();
 		while (true)
 		{
-			SidedInventory inventory;
+			Inventory inventory;
 			do
 			{
 				PlayerEntity player;

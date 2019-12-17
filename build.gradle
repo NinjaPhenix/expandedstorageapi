@@ -44,8 +44,8 @@ dependencies {
     modImplementation("towelette:Towelette:2.1.3+1.15") // Remove Only to add towlette to dev.
     modImplementation("statement:Statement:1.2.0+1.14.4")
 
-	modApi("ninjaphenix:ninjaphenix-container-lib:0.0.1+1.15")
-	include("ninjaphenix:ninjaphenix-container-lib:0.0.1+1.15")
+	modApi("ninjaphenix:ninjaphenix-container-lib:${containerlib_version}")
+	include("ninjaphenix:ninjaphenix-container-lib:${containerlib_version}")
 
     compileOnly("org.checkerframework:checker-qual:3.0.1")
 }
@@ -79,7 +79,7 @@ tasks.getByName("githubRelease") {
 }
 
 githubRelease {
-	token = getProperty("github_api_key")
+	token = hasProperty("github_api_key") ? getProperty("github_api_key") : ""
 	owner "ninjaphenix"
 	repo "expandedstorageapi"
 	tagName "v${project.mod_version}"
