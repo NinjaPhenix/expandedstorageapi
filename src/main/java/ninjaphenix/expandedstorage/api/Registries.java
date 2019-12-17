@@ -12,7 +12,7 @@ import ninjaphenix.expandedstorage.api.block.misc.CursedChestType;
  * @author NinjaPhenix
  * @since 4.0.0
  */
-public class Registries
+public final class Registries
 {
 	/**
 	 * This registry for CursedChestBlock data storage.

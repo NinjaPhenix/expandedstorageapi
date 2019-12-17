@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-public class ExpandedStorageMixinPlugin implements IMixinConfigPlugin
+public final class ExpandedStorageMixinPlugin implements IMixinConfigPlugin
 {
 	private final HashMap<String, Boolean> conditionalMixins = new HashMap<>();
 

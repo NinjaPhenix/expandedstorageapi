@@ -23,7 +23,7 @@ import ninjaphenix.expandedstorage.api.client.models.TallChestModel;
 import ninjaphenix.expandedstorage.api.client.models.VanillaChestModel;
 
 @Environment(EnvType.CLIENT)
-public class CursedChestBlockEntityRenderer extends BlockEntityRenderer<CursedChestBlockEntity>
+public final class CursedChestBlockEntityRenderer extends BlockEntityRenderer<CursedChestBlockEntity>
 {
 	private static final SingleChestModel singleChestModel = new SingleChestModel();
 	private static final SingleChestModel tallChestModel = new TallChestModel();
