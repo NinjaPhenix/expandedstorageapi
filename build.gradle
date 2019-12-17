@@ -74,7 +74,9 @@ runClient {
 
 tasks.withType(JavaCompile) { options.setEncoding("UTF-8") }
 
-tasks.getByName("githubRelease").dependsOn(build)
+tasks.getByName("githubRelease") {
+	dependsOn(tasks.getByName("build"))
+}
 
 githubRelease {
 	token = getProperty("github_api_key")
@@ -82,6 +84,6 @@ githubRelease {
 	repo "expandedstorageapi"
 	tagName "v${project.mod_version}"
 	targetCommitish project.minecraft_version
-	releaseAssets jar.destinationDirectory.asFile.get().listFiles()
+	releaseAssets remapJar.destinationDirectory.getAsFile().get().listFiles((java.io.FilenameFilter) {dir, name -> name.contains(project.mod_version)})
 	overwrite true
 }
