@@ -1,0 +1,13 @@
+.gradle/
+build/
+out/
+run/
+venv/
+classes/
+.idea/
+
+*.iml
+*.ipr
+*.iws
+
+includes/
