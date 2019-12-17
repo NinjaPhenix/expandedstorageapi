@@ -28,7 +28,8 @@
 	"depends": {
 		"fabricloader": ">=0.7",
 		"fabric": ">=0.4.23",
-		"minecraft": ">=1.15"
+		"minecraft": ">=1.15",
+		"ninjaphenix-container-lib": ">=0.0.1 <1.0.0"
 	},
 	"custom": {
 		"modmenu:api": true
