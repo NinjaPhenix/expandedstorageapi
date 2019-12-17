@@ -79,7 +79,7 @@ tasks.getByName("githubRelease") {
 }
 
 githubRelease {
-	token = hasProperty("github_api_key") ? getProperty("github_api_key") : ""
+	token = project.hasProperty("github_api_key") ? project.getProperty("github_api_key") : ""
 	owner "ninjaphenix"
 	repo "expandedstorageapi"
 	tagName "v${project.mod_version}"
