@@ -58,9 +58,9 @@ public final class Registries
 		 */
 		public Identifier getChestTexture(CursedChestType type)
 		{
-			if (type == CursedChestType.BOTTOM || type == CursedChestType.TOP) return tallTexture;
-			else if (type == CursedChestType.LEFT || type == CursedChestType.RIGHT) return vanillaTexture;
-			else if (type == CursedChestType.FRONT || type == CursedChestType.BACK) return longTexture;
+			if (type == CursedChestType.BOTTOM || type == CursedChestType.TOP) { return tallTexture; }
+			else if (type == CursedChestType.LEFT || type == CursedChestType.RIGHT) { return vanillaTexture; }
+			else if (type == CursedChestType.FRONT || type == CursedChestType.BACK) { return longTexture; }
 			return singleTexture;
 		}
 	}

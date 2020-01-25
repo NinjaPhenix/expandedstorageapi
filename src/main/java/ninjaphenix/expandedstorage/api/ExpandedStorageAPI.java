@@ -2,21 +2,15 @@ package ninjaphenix.expandedstorage.api;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.InventoryProvider;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
 import ninjaphenix.expandedstorage.api.block.CursedChestBlock;
 import ninjaphenix.expandedstorage.api.block.OldChestBlock;
 import ninjaphenix.expandedstorage.api.block.entity.CursedChestBlockEntity;
 import ninjaphenix.expandedstorage.api.block.entity.CustomBlockEntityType;
 import ninjaphenix.expandedstorage.api.block.entity.OldChestBlockEntity;
+import ninjaphenix.expandedstorage.api.client.ExpandedStorageAPIClient;
 import ninjaphenix.expandedstorage.api.plugins.ExpandedStoragePluginV0;
 
 import java.util.function.Consumer;
@@ -45,12 +39,9 @@ public final class ExpandedStorageAPI implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
-		Registry.register(Registry.BLOCK_ENTITY, new Identifier("expandedstorage", "cursed_chest"), CHEST);
-		Registry.register(Registry.BLOCK_ENTITY, new Identifier("expandedstorage", "old_cursed_chest"), OLD_CHEST);
+		Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("expandedstorage", "cursed_chest"), CHEST);
+		Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("expandedstorage", "old_cursed_chest"), OLD_CHEST);
 		forEachPlugin(ExpandedStoragePluginV0::initialize);
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
-		{
-			ninjaphenix.expandedstorage.api.client.ExpandedStorageAPIClient.onInitializeClient();
-		}
+		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) { ExpandedStorageAPIClient.onInitializeClient(); }
 	}
 }

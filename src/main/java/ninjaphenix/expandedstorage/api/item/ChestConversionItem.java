@@ -45,7 +45,7 @@ public class ChestConversionItem extends ChestModifierItem
 		Inventories.fromTag(blockEntity.toTag(new CompoundTag()), inventoryData);
 		world.removeBlockEntity(pos);
 		BlockState newState = Registry.BLOCK.get(registry.get(to).getBlockId()).getDefaultState();
-		if (newState.getBlock() instanceof Waterloggable) newState = newState.with(Properties.WATERLOGGED, state.get(Properties.WATERLOGGED));
+		if (newState.getBlock() instanceof Waterloggable) { newState = newState.with(Properties.WATERLOGGED, state.get(Properties.WATERLOGGED)); }
 		world.setBlockState(pos, newState.with(Properties.HORIZONTAL_FACING, state.get(Properties.HORIZONTAL_FACING))
 										 .with(CursedChestBlock.TYPE, state.get(CursedChestBlock.TYPE)));
 		blockEntity = (AbstractChestBlockEntity) world.getBlockEntity(pos);
@@ -75,7 +75,7 @@ public class ChestConversionItem extends ChestModifierItem
 		World world = context.getWorld();
 		PlayerEntity player = context.getPlayer();
 		AbstractChestBlock chestBlock = (AbstractChestBlock) mainState.getBlock();
-		if (Registry.BLOCK.getId(chestBlock) != chestBlock.getDataRegistry().get(from).getBlockId()) return ActionResult.FAIL;
+		if (Registry.BLOCK.getId(chestBlock) != chestBlock.getDataRegistry().get(from).getBlockId()) { return ActionResult.FAIL; }
 		ItemStack handStack = player.getStackInHand(context.getHand());
 		if (otherBlockPos == null)
 		{
@@ -124,10 +124,14 @@ public class ChestConversionItem extends ChestModifierItem
 			{
 				BlockPos otherPos;
 				if (state.get(Properties.CHEST_TYPE) == ChestType.RIGHT)
+				{
 					otherPos = mainpos.offset(state.get(Properties.HORIZONTAL_FACING).rotateYCounterclockwise());
+				}
 				else if (state.get(Properties.CHEST_TYPE) == ChestType.LEFT)
+				{
 					otherPos = mainpos.offset(state.get(Properties.HORIZONTAL_FACING).rotateYClockwise());
-				else return ActionResult.FAIL;
+				}
+				else { return ActionResult.FAIL; }
 				if (!world.isClient)
 				{
 					upgradeChest(world, otherPos, world.getBlockState(otherPos));

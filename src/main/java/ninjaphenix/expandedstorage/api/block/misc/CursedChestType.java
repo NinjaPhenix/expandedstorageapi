@@ -15,21 +15,21 @@ public enum CursedChestType implements StringIdentifiable
 	@NonNull
 	public static CursedChestType valueOf(ChestType type)
 	{
-		if (type == ChestType.SINGLE) return SINGLE;
-		else if (type == ChestType.RIGHT) return LEFT;
-		else if (type == ChestType.LEFT) return RIGHT;
+		if (type == ChestType.SINGLE) { return SINGLE; }
+		else if (type == ChestType.RIGHT) { return LEFT; }
+		else if (type == ChestType.LEFT) { return RIGHT; }
 		throw new IllegalArgumentException("Unexpected chest type passed.");
 	}
 
 	@NonNull
 	public CursedChestType getOpposite()
 	{
-		if (this == FRONT) return BACK;
-		else if (this == BACK) return FRONT;
-		else if (this == BOTTOM) return TOP;
-		else if (this == TOP) return BOTTOM;
-		else if (this == LEFT) return RIGHT;
-		else if (this == RIGHT) return LEFT;
+		if (this == FRONT) { return BACK; }
+		else if (this == BACK) { return FRONT; }
+		else if (this == BOTTOM) { return TOP; }
+		else if (this == TOP) { return BOTTOM; }
+		else if (this == LEFT) { return RIGHT; }
+		else if (this == RIGHT) { return LEFT; }
 		throw new IllegalArgumentException("this cannot be SINGLE");
 	}
 

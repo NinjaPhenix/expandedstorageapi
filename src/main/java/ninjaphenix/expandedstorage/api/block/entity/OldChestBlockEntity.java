@@ -21,6 +21,6 @@ public class OldChestBlockEntity extends AbstractChestBlockEntity
 		inventorySize = Registries.OLD_CHEST.get(block).getSlotCount();
 		inventory = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
 		SLOTS = new int[inventorySize];
-		for (int i = 0; i < inventorySize; i++) SLOTS[i] = i;
+		for (int i = 0; i < inventorySize; i++) { SLOTS[i] = i; }
 	}
 }

@@ -25,7 +25,6 @@ public final class ExpandedStorageAPIClient
 
 	public static void onInitializeClient()
 	{
-		if (!Registries.CHEST.isEmpty())
-			BlockEntityRendererRegistry.INSTANCE.register(ExpandedStorageAPI.CHEST, CursedChestBlockEntityRenderer::new);
+		if (!Registries.CHEST.isEmpty()) { BlockEntityRendererRegistry.INSTANCE.register(ExpandedStorageAPI.CHEST, CursedChestBlockEntityRenderer::new); }
 	}
 }

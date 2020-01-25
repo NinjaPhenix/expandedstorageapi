@@ -36,9 +36,9 @@ public class CursedChestBlock extends FluidLoggableChestBlock
 	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext context)
 	{
 		CursedChestType type = state.get(TYPE);
-		if (type == SINGLE) return SINGLE_SHAPE;
-		if (type == TOP) return TOP_SHAPE;
-		if (type == BOTTOM) return BOTTOM_SHAPE;
+		if (type == SINGLE) { return SINGLE_SHAPE; }
+		if (type == TOP) { return TOP_SHAPE; }
+		if (type == BOTTOM) { return BOTTOM_SHAPE; }
 		switch (type)
 		{
 			case BACK:

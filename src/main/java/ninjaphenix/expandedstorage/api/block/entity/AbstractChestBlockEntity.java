@@ -30,7 +30,7 @@ public abstract class AbstractChestBlockEntity extends LootableContainerBlockEnt
 	protected AbstractChestBlockEntity(@NonNull BlockEntityType type, @Nullable Identifier block)
 	{
 		super(type);
-		if (block != null) this.initialize(block);
+		if (block != null) { this.initialize(block); }
 	}
 
 	protected void initialize(@NonNull Identifier block) { }
@@ -69,7 +69,7 @@ public abstract class AbstractChestBlockEntity extends LootableContainerBlockEnt
 	public boolean isInvEmpty()
 	{
 		for (ItemStack stack : inventory)
-			if (!stack.isEmpty()) return false;
+		{ if (!stack.isEmpty()) { return false; } }
 		return true;
 	}
 
@@ -79,7 +79,7 @@ public abstract class AbstractChestBlockEntity extends LootableContainerBlockEnt
 		super.fromTag(tag);
 		Identifier id = new Identifier(tag.getString("type"));
 		this.initialize(id);
-		if (!deserializeLootTable(tag)) Inventories.fromTag(tag, inventory);
+		if (!deserializeLootTable(tag)) { Inventories.fromTag(tag, inventory); }
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public abstract class AbstractChestBlockEntity extends LootableContainerBlockEnt
 	{
 		super.toTag(tag);
 		tag.putString("type", block.toString());
-		if (!serializeLootTable(tag)) Inventories.toTag(tag, inventory);
+		if (!serializeLootTable(tag)) { Inventories.toTag(tag, inventory); }
 		return tag;
 	}
 

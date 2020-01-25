@@ -35,7 +35,7 @@ public abstract class ChestModifierItem extends Item
 			ActionResult result = ActionResult.FAIL;
 			CursedChestType type = state.get(TYPE);
 			Direction facing = state.get(FACING);
-			if (type == CursedChestType.SINGLE) result = useModifierOnChestBlock(context, state, pos, null, null);
+			if (type == CursedChestType.SINGLE) { result = useModifierOnChestBlock(context, state, pos, null, null); }
 			else if (type == CursedChestType.BOTTOM)
 			{
 				BlockPos otherPos = pos.offset(Direction.UP);
@@ -84,7 +84,7 @@ public abstract class ChestModifierItem extends Item
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
 	{
 		TypedActionResult<ItemStack> result = useModifierInAir(world, player, hand);
-		if (result.getResult() == ActionResult.SUCCESS) player.getItemCooldownManager().set(this, 5);
+		if (result.getResult() == ActionResult.SUCCESS) { player.getItemCooldownManager().set(this, 5); }
 		return result;
 	}
 

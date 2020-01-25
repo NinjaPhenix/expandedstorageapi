@@ -79,7 +79,7 @@ public class CursedChestBlockEntity extends AbstractChestBlockEntity implements 
 		inventorySize = Registries.CHEST.get(block).getSlotCount();
 		inventory = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
 		SLOTS = new int[inventorySize];
-		for (int i = 0; i < inventorySize; i++) SLOTS[i] = i;
+		for (int i = 0; i < inventorySize; i++) { SLOTS[i] = i; }
 	}
 
 	@Override
@@ -103,14 +103,14 @@ public class CursedChestBlockEntity extends AbstractChestBlockEntity implements 
 	{
 		viewerCount = tickViewerCount(world, this, ++ticksOpen, pos.getX(), pos.getY(), pos.getZ(), viewerCount);
 		lastAnimationAngle = animationAngle;
-		if (viewerCount > 0 && animationAngle == 0.0F) playSound(SoundEvents.BLOCK_CHEST_OPEN);
+		if (viewerCount > 0 && animationAngle == 0.0F) { playSound(SoundEvents.BLOCK_CHEST_OPEN); }
 		if (viewerCount == 0 && animationAngle > 0.0F || viewerCount > 0 && animationAngle < 1.0F)
 		{
 			float float_2 = animationAngle;
-			if (viewerCount > 0) animationAngle += 0.1F;
-			else animationAngle -= 0.1F;
+			if (viewerCount > 0) { animationAngle += 0.1F; }
+			else { animationAngle -= 0.1F; }
 			animationAngle = MathHelper.clamp(animationAngle, 0, 1);
-			if (animationAngle < 0.5F && float_2 >= 0.5F) playSound(SoundEvents.BLOCK_CHEST_CLOSE);
+			if (animationAngle < 0.5F && float_2 >= 0.5F) { playSound(SoundEvents.BLOCK_CHEST_CLOSE); }
 		}
 	}
 
@@ -118,9 +118,9 @@ public class CursedChestBlockEntity extends AbstractChestBlockEntity implements 
 	private void playSound(SoundEvent soundEvent)
 	{
 		CursedChestType chestType = getCachedState().get(CursedChestBlock.TYPE);
-		if (!chestType.isRenderedType()) return;
+		if (!chestType.isRenderedType()) { return; }
 		double zOffset = 0.5;
-		if (chestType == CursedChestType.BOTTOM) zOffset = 1;
+		if (chestType == CursedChestType.BOTTOM) { zOffset = 1; }
 		BlockPos otherPos = CursedChestBlock.getPairedPos(world, pos);
 		Vec3d center = new Vec3d(pos).add(new Vec3d(otherPos == null ? pos : otherPos));
 		world.playSound(null, center.getX() / 2 + 0.5D, center.getY() / 2 + 0.5D, center.getZ() / 2 + zOffset, soundEvent, SoundCategory.BLOCKS, 0.5F,
@@ -130,8 +130,8 @@ public class CursedChestBlockEntity extends AbstractChestBlockEntity implements 
 	@Override
 	public void onInvOpen(PlayerEntity player)
 	{
-		if (player.isSpectator()) return;
-		if (viewerCount < 0) viewerCount = 0;
+		if (player.isSpectator()) { return; }
+		if (viewerCount < 0) { viewerCount = 0; }
 		++viewerCount;
 		onInvOpenOrClose();
 	}
@@ -139,7 +139,7 @@ public class CursedChestBlockEntity extends AbstractChestBlockEntity implements 
 	@Override
 	public void onInvClose(PlayerEntity player)
 	{
-		if (player.isSpectator()) return;
+		if (player.isSpectator()) { return; }
 		--viewerCount;
 		onInvOpenOrClose();
 	}

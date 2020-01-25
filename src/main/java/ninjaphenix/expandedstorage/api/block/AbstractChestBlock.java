@@ -1,6 +1,5 @@
 package ninjaphenix.expandedstorage.api.block;
 
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -30,12 +29,12 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import ninjaphenix.containerlib.ContainerLibrary;
+import ninjaphenix.containerlib.inventory.DoubleSidedInventory;
 import ninjaphenix.expandedstorage.api.Registries;
 import ninjaphenix.expandedstorage.api.block.entity.AbstractChestBlockEntity;
 import ninjaphenix.expandedstorage.api.block.misc.BasicStorageBlock;
 import ninjaphenix.expandedstorage.api.block.misc.CursedChestType;
 import ninjaphenix.expandedstorage.api.block.misc.Nameable;
-import ninjaphenix.containerlib.inventory.DoubleSidedInventory;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,8 +68,8 @@ public abstract class AbstractChestBlock extends BasicStorageBlock
 				public Optional<Text> getFromBoth(AbstractChestBlockEntity mainBlockEntity, AbstractChestBlockEntity secondaryBlockEntity)
 				{
 					Text v = new TranslatableText(DOUBLE_PREFIX, mainBlockEntity.getDisplayName());
-					if (mainBlockEntity.hasCustomName()) v = mainBlockEntity.getDisplayName();
-					if (secondaryBlockEntity.hasCustomName()) v = secondaryBlockEntity.getDisplayName();
+					if (mainBlockEntity.hasCustomName()) { v = mainBlockEntity.getDisplayName(); }
+					if (secondaryBlockEntity.hasCustomName()) { v = secondaryBlockEntity.getDisplayName(); }
 					return Optional.of(v);
 				}
 
@@ -91,12 +90,12 @@ public abstract class AbstractChestBlock extends BasicStorageBlock
 
 	public static CursedChestType getChestType(Direction facing, Direction offset)
 	{
-		if (facing.rotateYClockwise() == offset) return CursedChestType.RIGHT;
-		else if (facing.rotateYCounterclockwise() == offset) return CursedChestType.LEFT;
-		else if (facing == offset) return CursedChestType.BACK;
-		else if (facing == offset.getOpposite()) return CursedChestType.FRONT;
-		else if (offset == Direction.DOWN) return CursedChestType.TOP;
-		else if (offset == Direction.UP) return CursedChestType.BOTTOM;
+		if (facing.rotateYClockwise() == offset) { return CursedChestType.RIGHT; }
+		else if (facing.rotateYCounterclockwise() == offset) { return CursedChestType.LEFT; }
+		else if (facing == offset) { return CursedChestType.BACK; }
+		else if (facing == offset.getOpposite()) { return CursedChestType.FRONT; }
+		else if (offset == Direction.DOWN) { return CursedChestType.TOP; }
+		else if (offset == Direction.UP) { return CursedChestType.BOTTOM; }
 		return CursedChestType.SINGLE;
 	}
 
@@ -104,23 +103,23 @@ public abstract class AbstractChestBlock extends BasicStorageBlock
 	{
 		BlockState state = world.getBlockState(pos);
 		CursedChestType chestType = state.get(TYPE);
-		if (chestType == CursedChestType.SINGLE) return null;
-		else if (chestType == CursedChestType.TOP) return pos.offset(Direction.DOWN);
-		else if (chestType == CursedChestType.BOTTOM) return pos.offset(Direction.UP);
-		else if (chestType == CursedChestType.LEFT) return pos.offset(state.get(FACING).rotateYCounterclockwise());
-		else if (chestType == CursedChestType.RIGHT) return pos.offset(state.get(FACING).rotateYClockwise());
-		else if (chestType == CursedChestType.FRONT) return pos.offset(state.get(FACING).getOpposite());
-		else return pos.offset(state.get(FACING));
+		if (chestType == CursedChestType.SINGLE) { return null; }
+		else if (chestType == CursedChestType.TOP) { return pos.offset(Direction.DOWN); }
+		else if (chestType == CursedChestType.BOTTOM) { return pos.offset(Direction.UP); }
+		else if (chestType == CursedChestType.LEFT) { return pos.offset(state.get(FACING).rotateYCounterclockwise()); }
+		else if (chestType == CursedChestType.RIGHT) { return pos.offset(state.get(FACING).rotateYClockwise()); }
+		else if (chestType == CursedChestType.FRONT) { return pos.offset(state.get(FACING).getOpposite()); }
+		else { return pos.offset(state.get(FACING)); }
 	}
 
 	private static <T> T retrieve(BlockState clickedState, IWorld world, BlockPos clickedPos,
 			DoubleBlockProperties.PropertyRetriever<AbstractChestBlockEntity, T> propertyRetriever)
 	{
 		BlockEntity clickedBlockEntity = world.getBlockEntity(clickedPos);
-		if (!(clickedBlockEntity instanceof AbstractChestBlockEntity) || isChestBlocked(world, clickedPos)) return propertyRetriever.getFallback();
+		if (!(clickedBlockEntity instanceof AbstractChestBlockEntity) || isChestBlocked(world, clickedPos)) { return propertyRetriever.getFallback(); }
 		AbstractChestBlockEntity clickedChestBlockEntity = (AbstractChestBlockEntity) clickedBlockEntity;
 		CursedChestType clickedChestType = clickedState.get(TYPE);
-		if (clickedChestType == CursedChestType.SINGLE) return propertyRetriever.getFrom(clickedChestBlockEntity);
+		if (clickedChestType == CursedChestType.SINGLE) { return propertyRetriever.getFrom(clickedChestBlockEntity); }
 		BlockPos pairedPos = getPairedPos(world, clickedPos);
 		BlockState pairedState = world.getBlockState(pairedPos);
 		if (pairedState.getBlock() == clickedState.getBlock())
@@ -128,13 +127,15 @@ public abstract class AbstractChestBlock extends BasicStorageBlock
 			CursedChestType pairedChestType = pairedState.get(TYPE);
 			if (pairedChestType != CursedChestType.SINGLE && clickedChestType != pairedChestType && pairedState.get(FACING) == clickedState.get(FACING))
 			{
-				if (isChestBlocked(world, pairedPos)) return propertyRetriever.getFallback();
+				if (isChestBlocked(world, pairedPos)) { return propertyRetriever.getFallback(); }
 				BlockEntity pairedBlockEntity = world.getBlockEntity(pairedPos);
 				if (pairedBlockEntity instanceof AbstractChestBlockEntity)
+				{
 					if (clickedChestType.isRenderedType())
-						return propertyRetriever.getFromBoth(clickedChestBlockEntity, (AbstractChestBlockEntity) pairedBlockEntity);
+					{ return propertyRetriever.getFromBoth(clickedChestBlockEntity, (AbstractChestBlockEntity) pairedBlockEntity); }
 					else
-						return propertyRetriever.getFromBoth((AbstractChestBlockEntity) pairedBlockEntity, clickedChestBlockEntity);
+					{ return propertyRetriever.getFromBoth((AbstractChestBlockEntity) pairedBlockEntity, clickedChestBlockEntity); }
+				}
 			}
 		}
 		return propertyRetriever.getFrom(clickedChestBlockEntity);
@@ -151,7 +152,7 @@ public abstract class AbstractChestBlock extends BasicStorageBlock
 	{
 		List<CatEntity> cats = world.getNonSpectatingEntities(CatEntity.class,
 				new Box(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 1, pos.getY() + 2, pos.getZ() + 1));
-		for (CatEntity catEntity_1 : cats) if (catEntity_1.isSitting()) return true;
+		for (CatEntity catEntity_1 : cats) { if (catEntity_1.isSitting()) { return true; } }
 		return false;
 	}
 
@@ -191,7 +192,7 @@ public abstract class AbstractChestBlock extends BasicStorageBlock
 				state = world.getBlockState(pos.offset(direction_2.getOpposite()));
 				direction_3 = state.getBlock() == this && state.get(TYPE) == CursedChestType.SINGLE ? state.get(FACING) : null;
 				if (direction_3 != null && direction_3.getAxis() != direction_2.getAxis() && direction_3 == direction_1)
-					chestType = direction_2 == Direction.UP ? CursedChestType.TOP : CursedChestType.BOTTOM;
+				{ chestType = direction_2 == Direction.UP ? CursedChestType.TOP : CursedChestType.BOTTOM; }
 			}
 			else
 			{
@@ -208,11 +209,11 @@ public abstract class AbstractChestBlock extends BasicStorageBlock
 						else
 						{
 							state = world.getBlockState(pos.offset(direction_2.getOpposite()));
-							if (state.get(FACING).getHorizontal() < 2) offsetDir = offsetDir.getOpposite();
+							if (state.get(FACING).getHorizontal() < 2) { offsetDir = offsetDir.getOpposite(); }
 							if (direction_1 == state.get(FACING))
 							{
-								if (offsetDir == Direction.WEST || offsetDir == Direction.NORTH) chestType = CursedChestType.LEFT;
-								else chestType = CursedChestType.RIGHT;
+								if (offsetDir == Direction.WEST || offsetDir == Direction.NORTH) { chestType = CursedChestType.LEFT; }
+								else { chestType = CursedChestType.RIGHT; }
 							}
 						}
 					}
@@ -224,7 +225,7 @@ public abstract class AbstractChestBlock extends BasicStorageBlock
 			for (Direction dir : Direction.values())
 			{
 				BlockState state = world.getBlockState(pos.offset(dir));
-				if (state.getBlock() != this || state.get(TYPE) != CursedChestType.SINGLE || state.get(FACING) != direction_1) continue;
+				if (state.getBlock() != this || state.get(TYPE) != CursedChestType.SINGLE || state.get(FACING) != direction_1) { continue; }
 				CursedChestType type = getChestType(direction_1, dir);
 				if (type != CursedChestType.SINGLE)
 				{
@@ -242,19 +243,25 @@ public abstract class AbstractChestBlock extends BasicStorageBlock
 	{
 		CursedChestType type = state.get(TYPE);
 		Direction facing = state.get(FACING);
-		if (type == CursedChestType.TOP && world.getBlockState(pos.offset(Direction.DOWN)).getBlock() != this) return state.with(TYPE, CursedChestType.SINGLE);
-		if (type == CursedChestType.BOTTOM && world.getBlockState(pos.offset(Direction.UP)).getBlock() != this) return state.with(TYPE, CursedChestType.SINGLE);
+		if (type == CursedChestType.TOP && world.getBlockState(pos.offset(Direction.DOWN)).getBlock() != this)
+		{
+			return state.with(TYPE, CursedChestType.SINGLE);
+		}
+		if (type == CursedChestType.BOTTOM && world.getBlockState(pos.offset(Direction.UP)).getBlock() != this)
+		{
+			return state.with(TYPE, CursedChestType.SINGLE);
+		}
 		if (type == CursedChestType.FRONT && world.getBlockState(pos.offset(facing.getOpposite())).getBlock() != this)
-			return state.with(TYPE, CursedChestType.SINGLE);
-		if (type == CursedChestType.BACK && world.getBlockState(pos.offset(facing)).getBlock() != this) return state.with(TYPE, CursedChestType.SINGLE);
+		{ return state.with(TYPE, CursedChestType.SINGLE); }
+		if (type == CursedChestType.BACK && world.getBlockState(pos.offset(facing)).getBlock() != this) { return state.with(TYPE, CursedChestType.SINGLE); }
 		if (type == CursedChestType.LEFT && world.getBlockState(pos.offset(facing.rotateYCounterclockwise())).getBlock() != this)
-			return state.with(TYPE, CursedChestType.SINGLE);
+		{ return state.with(TYPE, CursedChestType.SINGLE); }
 		if (type == CursedChestType.RIGHT && world.getBlockState(pos.offset(facing.rotateYClockwise())).getBlock() != this)
-			return state.with(TYPE, CursedChestType.SINGLE);
+		{ return state.with(TYPE, CursedChestType.SINGLE); }
 		if (type == CursedChestType.SINGLE)
 		{
 			BlockState realOtherState = world.getBlockState(pos.offset(direction));
-			if (!realOtherState.contains(TYPE)) return state.with(TYPE, CursedChestType.SINGLE);
+			if (!realOtherState.contains(TYPE)) { return state.with(TYPE, CursedChestType.SINGLE); }
 			CursedChestType newType = getChestType(facing, direction);
 			if (realOtherState.get(TYPE) == newType.getOpposite() && facing == realOtherState.get(FACING))
 			{
@@ -270,7 +277,7 @@ public abstract class AbstractChestBlock extends BasicStorageBlock
 		if (stack.hasCustomName())
 		{
 			BlockEntity blockEntity = world.getBlockEntity(pos);
-			if (blockEntity instanceof ninjaphenix.expandedstorage.api.block.misc.Nameable) ((Nameable) blockEntity).setCustomName(stack.getName());
+			if (blockEntity instanceof ninjaphenix.expandedstorage.api.block.misc.Nameable) { ((Nameable) blockEntity).setCustomName(stack.getName()); }
 		}
 	}
 
@@ -291,7 +298,7 @@ public abstract class AbstractChestBlock extends BasicStorageBlock
 	protected void openContainer(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit)
 	{
 		Optional<Text> containerName = retrieve(state, world, pos, NAME_RETRIEVER);
-		if (!containerName.isPresent()) return;
+		if (!containerName.isPresent()) { return; }
 		BlockEntity clickedBlockEntity = world.getBlockEntity(pos);
 		BlockPos pairedPos = getPairedPos(world, pos);
 		if (pairedPos == null)
