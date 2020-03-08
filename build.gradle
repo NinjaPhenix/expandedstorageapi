@@ -1,9 +1,8 @@
 plugins {
 	id "java"
+	id "fabric-loom" version "0.2.7-SNAPSHOT"
 	id "com.github.breadmoirai.github-release" version "2.2.10"
 }
-
-apply plugin: "fabric-loom-ninjaphenix"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_1_8
@@ -21,6 +20,7 @@ group = project.maven_group
 repositories {
 	maven { url "https://tehnut.info/maven/" }
 	flatDir { dirs "includes" }
+	mavenLocal()
 }
 
 dependencies {
@@ -42,11 +42,11 @@ dependencies {
 				exclude(group: "net.fabricmc.fabric-api")
 			}
 
-	modImplementation("towelette:Towelette:${towelette_version}") // Remove Only to add towlette to dev.
-	modImplementation("statement:Statement:${statement_version}")
+	modCompileOnly("towelette:Towelette:${towelette_version}")
+	modCompileOnly("statement:Statement:${statement_version}")
 
 	modApi("ninjaphenix:ninjaphenix-container-lib:${containerlib_version}")
-	include("ninjaphenix:ninjaphenix-container-lib:${containerlib_version}")
+	//include("ninjaphenix:ninjaphenix-container-lib:${containerlib_version}")
 
 	compileOnly("org.checkerframework:checker-qual:3.0.1")
 }
