@@ -4,12 +4,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.container.Container;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
@@ -48,7 +48,7 @@ public abstract class AbstractChestBlockEntity extends LootableContainerBlockEnt
 	public void setInvStackList(DefaultedList<ItemStack> inventory) { this.inventory = inventory; }
 
 	@Override
-	protected Container createContainer(int i, PlayerInventory playerInventory) { return null; }
+	protected ScreenHandler createContainer(int i, PlayerInventory playerInventory) { return null; }
 
 	@Override
 	public int[] getInvAvailableSlots(Direction side) { return SLOTS; }

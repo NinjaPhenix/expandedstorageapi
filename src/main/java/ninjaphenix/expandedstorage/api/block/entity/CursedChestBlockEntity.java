@@ -63,8 +63,8 @@ public class CursedChestBlockEntity extends AbstractChestBlockEntity implements 
 				{
 					if (!playerIterator.hasNext()) { return viewers; }
 					player = playerIterator.next();
-				} while (!(player.container instanceof ScrollableContainer));
-				inventory = ((ScrollableContainer) player.container).getInventory();
+				} while (!(player.currentScreenHandler instanceof ScrollableContainer));
+				inventory = ((ScrollableContainer) player.currentScreenHandler).getInventory();
 			} while (inventory != instance && (!(inventory instanceof DoubleSidedInventory) || !((DoubleSidedInventory) inventory).isPart(instance)));
 			viewers++;
 		}
